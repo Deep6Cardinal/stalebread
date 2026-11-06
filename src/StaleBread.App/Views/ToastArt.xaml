@@ -1,0 +1,23 @@
+<UserControl x:Class="StaleBread.App.Views.ToastArt" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Focusable="False" IsHitTestVisible="False" AutomationProperties.Name="Toast watching for breadcrumbs">
+ <Viewbox Stretch="Uniform">
+  <Canvas Width="160" Height="130">
+   <Canvas x:Name="Bread">
+    <Canvas.RenderTransform><TranslateTransform x:Name="BreadY"/></Canvas.RenderTransform>
+    <Path x:Name="Crust" Fill="#D69444" Stroke="#704322" StrokeThickness="4" Data="M 35,36 C 15,5 145,5 125,36 L 125,95 Q 80,108 35,95 Z"/>
+    <Path x:Name="Crumb" Fill="#FFF0C7" Data="M 43,40 C 28,17 132,17 117,40 L 117,88 Q 80,98 43,88 Z"/>
+    <Canvas x:Name="Eyes">
+     <Canvas.RenderTransform><TranslateTransform x:Name="Gaze"/></Canvas.RenderTransform>
+     <Ellipse x:Name="LeftEye" Fill="#442E22" Width="9" Height="12" Canvas.Left="57" Canvas.Top="54"/>
+     <Ellipse x:Name="RightEye" Fill="#442E22" Width="9" Height="12" Canvas.Left="94" Canvas.Top="54"/>
+    </Canvas>
+    <Path x:Name="Smile" Stroke="#442E22" StrokeThickness="3" Data="M 71,76 Q 80,84 89,76"/>
+   </Canvas>
+   <Canvas x:Name="Toaster" Visibility="Collapsed">
+    <Rectangle Fill="#677783" Stroke="#34434E" StrokeThickness="3" RadiusX="14" RadiusY="14" Width="130" Height="45" Canvas.Left="15" Canvas.Top="82"/>
+    <Rectangle Fill="#C8D2D8" RadiusX="6" RadiusY="6" Width="105" Height="25" Canvas.Left="25" Canvas.Top="92"/>
+    <Ellipse Fill="#D69444" Width="10" Height="10" Canvas.Left="132" Canvas.Top="97"/>
+   </Canvas>
+  </Canvas>
+ </Viewbox>
+</UserControl>

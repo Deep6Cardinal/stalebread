@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>StaleBread</AssemblyName><ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/stalebread.ico</ApplicationIcon>
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- WPF owns DPI through its manifest; WinForms is used only for NotifyIcon. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../StaleBread.Windows/StaleBread.Windows.csproj" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Assets/toaster-pop.wav" LogicalName="StaleBread.Assets.toaster-pop.wav"/><None Update="Assets/LICENSES.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" ExcludeFromSingleFile="true"/></ItemGroup>
+</Project>

@@ -1,0 +1,50 @@
+<Window x:Class="StaleBread.App.Views.FindingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="StaleBread — findings" Width="980" Height="700" MinWidth="620" MinHeight="450">
+ <DockPanel Margin="20">
+  <StackPanel DockPanel.Dock="Top">
+   <TextBlock Text="ST A L E B R E A D" FontSize="13" FontWeight="Bold"/>
+   <TextBlock Text="Watching for breadcrumbs" FontSize="27" FontWeight="SemiBold" Margin="0,5"/>
+   <TextBlock x:Name="Status" TextWrapping="Wrap" Margin="0,3"/>
+   <TextBlock x:Name="CountHeading" FontWeight="SemiBold" Margin="0,8,0,0"/>
+   <TextBlock Text="Appeared / Disappeared · all monitored processes, not confirmed problems" FontSize="12"/>
+   <WrapPanel x:Name="Trends" Margin="0,6"/>
+   <WrapPanel>
+    <Button Content="_Typing feels slow" Click="SymptomClick"/><Button Content="_Settings" Click="SettingsClick"/>
+    <Button Content="_Export diagnostics…" Click="ExportClick"/><Button x:Name="PauseButton" Content="_Pause watching" Click="PauseClick"/>
+   </WrapPanel>
+  </StackPanel>
+  <TextBlock x:Name="Footer" DockPanel.Dock="Bottom" TextWrapping="Wrap" FontSize="12" Margin="0,10"/>
+  <TabControl Margin="0,12,0,0">
+   <TabItem Header="_Findings">
+    <DockPanel>
+     <TextBlock DockPanel.Dock="Top" Text="Current alerts only. Alerts that clear normally are recorded as Resolved in History → Refresh history. Disappearing does not mean a process was stopped." TextWrapping="Wrap" Margin="0,4,0,8"/>
+     <WrapPanel DockPanel.Dock="Bottom" Margin="0,7">
+      <Button Content="_Details" Click="DetailsClick"/><Button Content="_Review cleanup…" Click="CleanupClick"/>
+      <Button Content="_Snooze 30 min" Click="SnoozeClick"/><Button Content="_Dismiss episode" Click="DismissClick"/>
+     </WrapPanel>
+     <ListBox x:Name="Findings" AutomationProperties.Name="Detected findings">
+      <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="8">
+       <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+       <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" Margin="0,4"/>
+       <TextBlock Text="{Binding Evidence}" TextWrapping="Wrap" FontSize="12"/>
+      </StackPanel></DataTemplate></ListBox.ItemTemplate>
+     </ListBox>
+    </DockPanel>
+   </TabItem>
+   <TabItem Header="_Monitored processes">
+    <DockPanel>
+     <WrapPanel DockPanel.Dock="Bottom"><Button Content="Process _details" Click="ProcessDetailsClick"/><Button Content="_Ignore this process" Click="IgnoreClick"/><Button Content="_Keep this app" Click="KeepClick"/></WrapPanel>
+     <DataGrid x:Name="Processes" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" AutomationProperties.Name="Monitored processes">
+      <DataGrid.Columns>
+       <DataGridTextColumn Header="Process" Binding="{Binding Name}" Width="*"/><DataGridTextColumn Header="PID" Binding="{Binding Pid}" Width="70"/>
+       <DataGridTextColumn Header="CPU (machine)" Binding="{Binding Cpu}" Width="110"/><DataGridTextColumn Header="Private bytes" Binding="{Binding Memory}" Width="120"/>
+       <DataGridTextColumn Header="Classification" Binding="{Binding Role}" Width="170"/>
+      </DataGrid.Columns>
+     </DataGrid>
+    </DockPanel>
+   </TabItem>
+   <TabItem Header="_History"><DockPanel><Button Content="Refresh history" Click="HistoryClick" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+    <TextBox x:Name="History" Text="Choose Refresh history to see recorded Active/Resolved alerts and manual cleanup actions. These are historical observations, not current process status." IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Local history"/></DockPanel></TabItem>
+  </TabControl>
+ </DockPanel>
+</Window>

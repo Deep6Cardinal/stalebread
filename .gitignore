@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+*_wpftmp.csproj
+dist/
+TestResults/
+.vs/
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json

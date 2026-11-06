@@ -1,0 +1,31 @@
+# StaleBread — unsigned local preview
+
+Run `StaleBread.exe` as your ordinary user. No .NET installation is intended to be required; the runtime is bundled. Windows may warn about the unsigned app. Do not disable Windows security to run it. Fresh-machine/SmartScreen acceptance is not yet certified.
+
+StaleBread watches console and AI-related process activity locally. It never automatically stops anything. A high process count or idle process is not proof of a problem.
+
+- Companion: toast watches for breadcrumbs. Close hides it in the tray; **Exit StaleBread** in the tray menu stops the application.
+- Findings: review evidence, confidence and impact. Active work is labelled busy, not stale. Missing metadata is unavailable, not zero.
+- Churn means repeated subprocess starts, not confirmed stale processes; it is review-only even in administrator mode. Finding cards explain why cleanup is unavailable. Eligible findings use **Review cleanup… → select processes → Review selected identities → Force stop selected**.
+- History → **Refresh history** distinguishes **Active when recorded** from **Resolved**, using readable finding names. Churn/accumulation now require two minutes below their trigger to resolve; other findings still clear after three scheduled scans. Neither means processes exited or memory was freed. Check Action entries for manual cleanup results. Monitoring resets can remove current alerts without a resolved record.
+- Accumulation requires the helper count to remain above both its minimum and its ten-minute-baseline growth threshold for two minutes before first alerting. It measures sustained counts, not proof that the same added helpers survived. Brief drops show **Settling**; returning activity during the two-minute clear period stays in the same episode. Settling findings and zero-member churn do not produce new popups.
+- Finding cards label counts/memory as **last matching observation**, never current or reclaimed resources. Details and new history contain the trigger measurements, thresholds and scope. Churn with no associated processes is explicitly labeled as recent activity. Churn/accumulation are activity advisories, not measured slowdown scores.
+- Counts: current same-session watched processes and **appeared / disappeared** over 60 seconds, 5, 15, 30 and 60 minutes. `+20 / −20` means both occurred; net zero does not erase activity. These are observed lower bounds, not a complete event ledger. Opening a trend does not trigger a scan.
+- Settings: mute/volume, reduced motion, popups, quiet hours, optional startup, exact-path exclusions and test notification. Startup is off by default. Move the app? Review its startup path.
+- Ignore this process matches its exact PID/creation lifetime. Keep this app excludes its full executable path and known descendants from findings/cleanup; neither changes the activity counters.
+- Cleanup is deliberately conservative: select individual eligible helpers, review a frozen proposal, then explicitly force-stop those identities. Unsaved work can be lost. Active AI roots, terminal hosts, unknown ownership and protected descendants are never cleanup targets. Proposals expire and are revalidated; partial outcomes are reported. There is no “kill all” control.
+- “Typing feels slow” records a timestamp only. No keylogging, chats or raw arguments are retained. Export opens a sanitized preview before you choose a file.
+
+History/settings live under `%LOCALAPPDATA%\StaleBread`. History is bounded to 7 days/20 MiB. Rolling metric series are memory-only; numeric trigger summaries are retained with new history entries. Uninstall: disable startup, Exit, then remove the portable folder; optionally remove your StaleBread local data yourself.
+
+Diagnostic JSON schema 2 includes export-local anonymous owner/episode IDs, allow-listed trigger codes, measured values/thresholds, scopes and measurement timestamps. CPU evidence is a window average; CPU trigger thresholds apply to each interval in that window. Memory/handle growth includes baseline and end values. Different scopes and findings can overlap: never add their process or memory totals. CSV is a compact lifecycle summary; use JSON for detailed trigger evidence. Older history remains readable but missing evidence/timestamps cannot be reconstructed. Private paths, account names, arguments and chat/session titles remain excluded.
+
+Sampling is provisionally 5 seconds. Sustained >2% app CPU switches to 15-second economy mode with animation off. Short processes may be missed, especially if optional process tracing is unavailable. Pause/sleep gaps restart history and cleanup observation windows.
+
+**Snapshot monitoring** is a supported fallback when live process-start/stop events are unavailable (for example, `AccessDenied`). Normal monitoring does not require administrator mode. Snapshot scans still monitor observed processes and resources, but can miss processes that start and exit between scans. This warning alone does not disable cleanup; separate safety checks still apply. Elevation is not a bypass for those checks.
+
+Browser helpers associated with an AI process are included in diagnostic resource monitoring; browsers are not added to the fixed process counters. Dismissal survives detector warm-up after a reset. If an episode stays absent for ten healthy minutes, a later recurrence can notify again; explicit observed resolution clears dismissal sooner.
+
+Known preview limits: standard-user tracing was unavailable on the development host; visual/audio/DPI/tray-keyboard and clean Windows-without-.NET acceptance are not yet passed. Full matched provider-overhead and long real-session testing remain release gates. Many ordinary Windows trees have missing startup ancestors: StaleBread can show their likely-leftover reports, but **incomplete ancestry still makes cleanup unavailable**. Unrecognized AI install paths are also review-only. See the repository README's preview limitations before treating this as production-ready.
+
+Recording credit: “Toaster Pop, A.wav” by InspectorJ (Jonathan Shaw, https://www.jshaw.co.uk/) of Freesound.org, CC BY 4.0. See `Assets/LICENSES.md` for source and modifications. No audio is fetched at runtime.

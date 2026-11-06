@@ -1,0 +1,2 @@
+# Shell wrappers must remain executable by Git Bash after Windows checkouts.
+*.sh text eol=lf
